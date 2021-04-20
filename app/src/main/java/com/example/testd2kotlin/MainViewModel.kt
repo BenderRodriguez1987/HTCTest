@@ -1,13 +1,14 @@
 package com.example.testd2kotlin
 
 import android.content.Context
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class MainViewModel(context: Context) : ViewModel() {
+class MainViewModel() : ViewModel() {
 
-    val adapter = RecyclerAdapter(context)
+    val employees = MutableLiveData<List<Employee>>()
 
     fun loadData() {
         getCompany()
@@ -18,7 +19,6 @@ class MainViewModel(context: Context) : ViewModel() {
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe { rootObject ->
-            adapter.setEmployees(rootObject.company.employees)
-            adapter.notifyDataSetChanged()
+            employees.postValue(rootObject.company.employees)
         }
 }
