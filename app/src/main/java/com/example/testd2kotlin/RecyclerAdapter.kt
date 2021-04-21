@@ -36,7 +36,7 @@ class RecyclerAdapter :
                 itemView.setOnClickListener {
                 Toast.makeText(
                     it.context,
-                    employee.toString(),
+                    employee.name,
                     Toast.LENGTH_LONG
                 ).show()
             }
